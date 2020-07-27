@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+        <title>Sunburn Event</title>
+        <link rel="stylesheet" type="text/css" href="style1.css">
+</head>
+<body ><header>
+    <div class="header">
+
+            <div class="titl">
+		    <h2>Sunburn Event 2020</h2>
+            </div>
+    </div>
+    <div class="rel">
+		<div id="p">
+				<span onclick="show('Homebtn');">Home</span>
+		</div>		
+		<div id="p1">
+			<span onclick="show('Registrationbtn');">Registration Form</span>
+		</div>
+		<div id="p2">
+			<span onclick="show('Showregistrationbtn');">Show Registrants</span>
+        </div>
+    </div>
+    <!--<div class="nav">
+	<ul>
+	     <li><input type ="button" value="Home" class ="active" id="btn1"></li>
+	     <li><input type ="button" value="Registration" id="btn2"></li>
+	     <li><input type ="button" value="Show Registration" id="btn3"></li>
+	</ul>
+   </div>-->
+   <div class="page" id="Homebtn">
+	<h2>Welcome to Sunburn</h2>
+	<p>Get Ready for Party<br>
+	Location : MITAOE, Pune <br>
+	Main Attraction: DJ Nucleya<br>
+    Get 20% off <br>
+    Special Discount for couples<br>
+    Tickets starting at 999/- <br>
+    Date- 31st December 2020<br>
+    Time- 6 pm to 1 am <br>
+	</p> 
+   </div>
+   
+	<div class="page" id="Registrationbtn">
+	<form name="form"  id="form1"> 
+        <div class="input">Name: <input id="name" name="name1" type="text" placeholder="Enter full name.."></div><br>
+        <span id="nam1"></span>
+        <div class="input">
+            Gender: <input id="gender" type="radio" name="r" value="male">Male
+                    <input type="radio" name="r" value="female">Female</div><br>
+            <span id="gen1"></span>
+        <div class="input">Email Id: <input id="email" name="email1" type="text" placeholder="Email Id.."></div><br>	
+        <span id="mail"></span>
+        <div class="input">Age: <input id="age" name="age1" type="text" placeholder="Your age.."></div><br>
+        <span id="ag"></span>
+        <div class="input">Mobile No: <input id="mobile" name="mobile1" type="text" placeholder="mobile no.."></div><br>
+        <span id="mob"></span>
+        
+        <input type="submit" value="submit" id="register">	
+	</form>
+    </div>
+
+
+
+	<div class="page" id="Showregistrationbtn">
+        <table id="display">
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Email Id</th>
+                <th>Age</th>
+                <th>Mobile No.</th>
+                
+            </tr>
+    </div>
+</header>
+
+<script>
+    var list1=[];
+          var list2=[];
+          var list3=[];
+          var list4=[];
+          var list5=[];
+          
+          
+          var n=1;
+   var x=0;
+
+   function show(elementID) {
+    // try to find the requested page and alert if it's not found
+    var ele = document.getElementById(elementID);
+    if (!ele) {
+        alert("no such element");
+        return;
+    }
+
+    var pages = document.getElementsByClassName('page');
+    for(var i = 0; i < pages.length; i++) {
+        pages[i].style.display = 'none';
+    }
+
+    // then show the requested page
+    ele.style.display = 'block';
+}
+
+function checkEmail(str1)
+{
+    var posat=str1.indexOf("@");
+    var posdot=str1.indexOf(".");
+    
+    if(posat!=-1 && posdot!=-1)
+    {
+        if(posat>=1 && (posdot-posat)>=2 && (str1.length-1-posdot)>=2 && (str1.length-1-posdot)<=5)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return false;
+    }
+}
+
+
+const validateForm = (ev) =>{
+ev.preventDefault();
+    var nam=document.form.name1.value;
+    var a=document.form.r.value;
+    var id=document.form.email1.value;
+    var ages=document.form.age1.value;
+    var no=document.form.mobile1.value;
+    
+    
+
+    if(nam=="" || nam==null)
+    {
+        document.getElementById("nam1").innerHTML="Name should not be blank";
+        return false; 
+    }
+    else if(nam.length<3)
+    {
+        document.getElementById("nam1").innerHTML="Name length should be 3-30";
+        return false; 
+    }
+    else if(nam.length>30)
+    {
+        document.getElementById("nam1").innerHTML="Name length should be 3-30";
+        return false; 
+    }
+    else if(isNaN(nam)==false)
+    {
+        document.getElementById("nam1").innerHTML="Name should not be numeric";
+        return false; 
+    }
+    else if(a=="" || a==null)
+    {
+        document.getElementById("gen1").innerHTML="should not be empty";
+        return false;
+    }
+    
+    else if(id=="" || id==null)
+    {
+        document.getElementById("mail").innerHTML="Email should not be empty";
+        return false;
+    }
+    else if(!checkEmail(id))
+    {
+        document.getElementById("mail").innerHTML="Email not valid";
+        return false;
+    }
+    else if(ages=="" || ages==null)
+    {
+        document.getElementById("ag").innerHTML="Please enter age";
+        return false;
+    }
+    else if(ages < 18 )
+    {
+        document.getElementById("ag").innerHTML="You are not eligible";
+        return false;
+    }
+    else if(ages > 55 )
+    {
+        document.getElementById("ag").innerHTML="You are not eligible";
+        return false;
+    }
+    else if(no=="" || no==null)
+    {
+        document.getElementById("mob").innerHTML="Mobile no. should not be empty";
+        return false;
+    }
+    else if(no.length!=10)
+    {
+        document.getElementById("mob").innerHTML="Please enter 10 digit mobile no.";
+        return false;
+    }
+    
+   
+   else
+	 {
+                  
+                  var AddRown=document.getElementById('display');
+                  var NewRow=AddRown.insertRow(n);
+                  
+                  list1[x]=document.form.name.value;
+                  list2[x]=document.form.gender.value;
+                  list3[x]=document.form.email.value;
+                  list4[x]=document.form.age.value;
+                  list5[x]=document.form.mobile.value;
+                  
+                  
+                  
+                  var cel1=NewRow.insertCell(0);
+                  var cel2=NewRow.insertCell(1);
+                  var cel3=NewRow.insertCell(2);
+                  var cel4=NewRow.insertCell(3);
+                  var cel5=NewRow.insertCell(4);
+                  
+                  
+                  
+                  cel1.innerHTML=list1[x];
+                  cel2.innerHTML=list2[x];
+                  cel3.innerHTML=list3[x];
+                  cel4.innerHTML=list4[x];
+                  cel5.innerHTML=list5[x];
+                  
+                  
+                  
+                  n++;
+                  x++;
+                 
+                  alert("successfully registered");
+                  document.querySelector("form1").reset();
+               }
+}
+          document.addEventListener("DOMContentLoaded", ()=>{
+              document.getElementById("register").addEventListener("click", validateForm);
+});
+</script>
+</body>
+</html>
